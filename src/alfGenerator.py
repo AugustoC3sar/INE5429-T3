@@ -1,5 +1,5 @@
 class ALFGenerator:
-    def __init__(self, seed_list, j=55, k=24, bits=64):
+    def __init__(self, seed_list: list, j=55, k=24, bits=64):
         """
             seed_list: lista de sementes iniciais (precisa ter pelo menos j elementos)
             j: lag maior
@@ -9,7 +9,7 @@ class ALFGenerator:
         if len(seed_list) < j:
             raise ValueError("A lista de sementes precisa ter pelo menos j elementos.")
         
-        self._buffer = seed_list.copy() # lista circular de tamanho fixo (objetivo é manter os últimos números necessários para a geração dos próximos números e reduzir o consumo de memória)
+        self._buffer = seed_list.copy()[len(seed_list)-j:j] # lista circular de tamanho fixo (objetivo é manter os últimos números necessários para a geração dos próximos números e reduzir o consumo de memória)
         self._j = j
         self._k = k
         self._m = 1 << bits             # 2**bits, porém mais rápido
